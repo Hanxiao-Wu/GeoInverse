@@ -1,4 +1,4 @@
-# MCMC-Cplus: Geophysical Inversion Program
+# Monte Carlo Joint Inversion Program
 
 ## Overview
 This program, written in C++, is designed for geophysical inversion applications using a classical Monte Carlo inversion approach. It provides a framework to estimate subsurface structure parameters with multiple types of geophysical data, particularly useful for studying crustal and upper mantle structures.
@@ -20,7 +20,7 @@ This program, written in C++, is designed for geophysical inversion applications
 ## Inversion Setup
 To run the program, three main files are required:
 ### 1. Inversion Control File (`*.control`)
-The `*.control` file is essential for configuring inversion parameters and Monte Carlo settings. It specifies data sources, weights for each data type, and the number of searches and iterations. Below is an example control file with explanations for each parameter:
+The `*.control` file is essential for configuring inversion parameters and Monte Carlo settings. It specifies data sources, weights for each data type, and the number of searches and iterations. Below is an [example control file](test.control) with explanations for each parameter:
 ```
 model 2 tar.mod        # Number of basic layers; model file
 para in.para           # Parameter file for setting up perturbed parameters
@@ -59,7 +59,7 @@ outdir tar tar          # Output directory and file name
 end                     # End of control file
 ```
 
-### 2.Model Setup
+### 2.Model Setup File
 The program is designed to derive a detailed 1D subsurface model (e.g., Vs, Vp, density). Since a model with hundreds of layers would require an impractical number of parameters for Monte Carlo inversion, we instead adopt a layered approach:
 1. Basic Layers: The model is divided into several main sections ( refered as group, usually two or three) to represent primary divisions:
 	- Two-Layer Example: Crust and uppermost mantle.
@@ -119,7 +119,7 @@ The model file defines the configuration of the basic layers and their fine stru
 9. Number of Fine Layers:
 	- The desired number of layers in the fine 1D model for this group. The thickness of each fine layer is calculated as the **group thickness divided by the number of layers**.
 
-##### Model File example
+##### Example
 You can find an example model file here.
 The following is an explanation in a group-by-group format. Each group has 7 rows to describe its Vs, Vp(or VP/Vs), density,Qs,Qp,T,P, respectively.
 ***group 0*** Sedimentary layer
