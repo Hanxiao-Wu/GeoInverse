@@ -8,7 +8,7 @@ This program, written in C++, is designed for geophysical inversion applications
 	- Receiver Functions (RF): Can take stacked RF to fit its waveform or multiple RFs from different events to fit theirs arrivals (H-k stacking)
 	- Rayleigh wave Dispersion Data: Include both phases and group velocity. Potentially can also take Love wave dispersion, but not tested yet.
 	- Rayleigh wave H/V ratio (Ellipticity)
-	- Rayleigh wave Local Amplification:**
+	- Rayleigh wave Local Amplification:
 - Inverted Results:
 	- Vs (fine 1-D structure)
 	- Vp/Vs (can be layered structure instead of just a bulk value)
@@ -65,25 +65,24 @@ The program is designed to derive a detailed 1D subsurface model (e.g., Vs, Vp, 
 	- Two-Layer Example: Crust and uppermost mantle.
 	- Three-Layer Example: Sediment, crystalline crust and uppermost mantle.
 2. Finer Layers within Basic Layers: Each basic layer is further divided into a finer 1D model. This detailed layering is controlled by user-defined parameters in the model file. Each fine layer's properties are determined by interpolation (e.g., B-spline) using a few coefficients, typically no more than five. This approach ensures a smoother transition in model parameters and reduces the inversion complexity.
-For further information, refer to Shen et al., 2013, and Wu et al., 2023.
+For further information, refer to [Shen et al., 2013](https://academic.oup.com/gji/article/192/2/807/580799), and [Wu et al., 2024](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2023JB027952).
 #### Model File
 The model file defines the configuration of the basic layers and their fine structure, supporting the generation of a detailed 1D model using a variety of interpolation approaches. Below is a breakdown of each column's purpose.
 ##### Column Description
 1. Group Index (Column 1):
 	- Represents the index of the "basic layer" or **group**, starting from 0.
-	- In this example, there are three groups (0,1, and 2), which represent the sedimentary layer, crystalline crust layer, and uppermost mantle layer, respectively.
 2. Parameter Type (Column 2):
-	- indicates the paramter type for this row:
+	- indicates the property type for this row:
 		- `1`- Vs(km/s)
 		- `2`- Vp/Vs
 		- `3`- Density(g/cm^3)
 		- `4`- Qs (Quality factor for Vs)
-		- `5`- Qp
+		- `5`- Qp (Quality factor for Vp)
 		- `6`- Temperature
 		- `7`- Pressure
 		
 3. Interpolation Approach (Column 3):
-	- Specifies how to generate the detailed 1D model within the group based on the parameters provided:
+	- Specifies how to generate the detailed 1D model within the group:
 		- `1`- Gradient interpolation (linear gradient from top to bottom of the group)
 		- `2`- Layered model (using this way ,this group is essentially already a layered model instead of interpolated from some coefficients)
 		- `3`- B-spline interpolation (smooth curve fitted to the parameters)
@@ -93,7 +92,7 @@ The model file defines the configuration of the basic layers and their fine stru
 		- `-3`- Brocher's empirical relationship, only applied to Vp or Density (using this way the Vp or density will be scaled from Vs using corresponding empirical relationship)
 		- `-4`- Hacker's empirical relationship, only applied to mantle Density
 
-4. Group Thickness (Column 4):
+4. Group Thickness (Column 4): 
 	- Total thickness of the group in km
 	- For Vs, Vp, and density, the group thickness should generally be the same since discontinuities in these properties are assumed to align within a group. If temperature and pressure are included in the future, groups may have differing thicknesses, but currently, group thickness should **remain consistent for all properties within the same group**.
 
