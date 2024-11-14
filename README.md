@@ -119,8 +119,8 @@ The model file defines the configuration of the basic layers and their fine stru
 	- The desired number of layers in the fine 1D model for this group. The thickness of each fine layer is calculated as the **group thickness divided by the number of layers**.
 
 ##### Example
-You can find an example model file here.
-The following is an explanation in a group-by-group format. Each group has 7 rows to describe its Vs, Vp(or VP/Vs), density,Qs,Qp,T,P, respectively.
+You can find an example model file [here](test.mod).
+The following is an explanation in a group-by-group format. Each group has 7 rows to describe its Vs, Vp(or VP/Vs), density, Qs, Qp, T, P, respectively.
 ***group 0*** Sedimentary layer
 ```
 0 1 1 1.0 2 1.5 2.7 0 5 0.
@@ -177,7 +177,7 @@ So basically, this group describes a 1.0 km thick sedimentary layer with a Vs gr
 - Lines 10–14: `1 3 -3 29.0 0 0 25` to `1 7 4 29.0 1 1000 0 25`
 	- Define density, Qs, Qp (using empirical relations), temperature (700), and pressure (1000) in the crystalline crust.
 
-**Summary**: Layer 1 represents the 29 km thick crystalline crust, where Vs is smoothly interpolated with B-spline control points and the Vp/Vs structure is essentially divided into upper crust (top 50% of the crust) and lower crust (bottom 50% of the crust). Temperature and pressure are constant across the layer, while other properties are computed based on Vs.
+So, layer 1 represents the 29 km thick crystalline crust, where Vs is smoothly interpolated with B-spline control points and the Vp/Vs structure is essentially divided into upper crust (top 50% of the crust) and lower crust (bottom 50% of the crust). Temperature and pressure are constant across the layer, while other properties are computed based on Vs.
 
 **group 2** Uppermost Mantle
 - Line 15: `2 1 3 150.0 5 4.2 4.35 4.45 4.53 4.6 0 30`
@@ -193,10 +193,58 @@ So basically, this group describes a 1.0 km thick sedimentary layer with a Vs gr
 	2. **Parameter (1.789)**: Sets Vp/Vs ratio.
 
 - Lines 17–21: `2 3 -3 150.0 0 0 30` to `2 7 4 150.0 1 1000 0 30`
-
-- Define density, Qs, Qp (empirical relations), temperature (800), and pressure (1000) in the mantle.
+	- Define density, Qs, Qp (empirical relations), temperature (800), and pressure (1000) in the mantle.
 
 **Overall Summary**
-The model file defines a three-layer structure (sedimentary layer, crystalline crust, and uppermost mantle), using a combination of linear, bulk, and B-spline interpolations. Each layer is characterized by specific Vs, Vp/Vs, density, Qs, and Qp, enabling a detailed 1D model suitable for forward calculation.
+The model file defines a three-layer structure (sedimentary layer, crystalline crust, and uppermost mantle), using a combination of linear, bulk, and B-spline interpolations. Each layer is characterized by specific Vs, Vp/Vs, density, Qs, and Qp, enabling a detailed 1D model suitable for forward calculation. 
 
+> **Note:** The designations "sedimentary layer," "crystalline crust layer," and "uppermost mantle layer" are conceptual labels applied for user interpretation. The GeoInverse program does not explicitly recognize these as specific geological layers; rather, it organizes model groups from shallow to deep solely based on their `group index`. This indexing enables flexibility in setting up layers without requiring geological definitions in the input files.
 
+### 3. `in.para` File
+The `in.para` file is used to define the parameters for the Monte Carlo inversion, specifying which parameters will be perturbed and their perturbation range. Each row in this file corresponds to a single parameter for a specific group and describes how this parameter will be handled during the inversion process. The columns in this file serve different purposes, from identifying the group and parameter type to specifying boundary conditions and anomaly values.
+
+#### Column descriptions
+1. **Group Index** (Column 1): This column  which group the parameter belongs to. The index is based on the model's group numbering.
+2. **Property Type** (Column 2): This column defines the property being described:
+	- `0`: Thickness (km)
+	- `1`: Vs (km/s)
+	- `2`: Vp/Vs
+	- ... (Basically the same as the model setting file)
+ 	- `-10`,`-11`,`-12`: Additional anomaly for Vs (top boundary, bottom boundary, value, respectively)
+  	-  `-20`,`-21`,`-22`: Additional anomaly for Vp/Vs (top boundary, bottom boundary, value, respectively)
+   	- ... (Similarly patterns for other anomalies) 
+3. **Absolute/Percentage Value Indicator** (Column 3): This column defines whether the value in the fourth column is an absolute value or a percentage of the model space.
+	- `0`: The value in the fourth column is expressed as a **percentage** of a reference value (which is the value in the model file).
+	- `1`: The value in the fourth column is an **absolute** value. 
+4. **Model Space Radius** (Column 4): This column defines the radius (or model space variation) of the parameter in the specific dimension. This represents the extent to which the parameter can vary during the inversion process.
+   - The final model space will be the value in the model file plus/minus this radius
+5. **Monte Carlo Step Size** (Column 5): This column defines the step size for the Monte Carlo inversion process, representing the standard deviation of the Gaussian distribution from which perturbations are drawn. This determines how much the parameter can change in each iteration of the Monte Carlo search.
+6. **Parameter index** (Column 6): This column is used to identify the specific parameter when there are multiple parameters of the same type within the same group.
+   - The value indicates the **sequence number** of the parameter within the group. For example, if there are two Vs values in group 0, the first one would be assigned `0` and the second one would be assigned `1` in this column.
+
+#### Example
+[Here](in.para) is an example `in.para` file, with each row explained:
+- Line 1: `0 0 0 1.0 0.1`
+	- This row defines the thickness (telled by the 2nd number `0` in this row) of group 0 (telled by the 1st number `0`)
+ 	- The radius of this model space is 100% (the 3rd number `0` tells us the radius is defined in percentage, the 3th number `1.0` means 100%) of the reference value (which is 1.km - set in the model file)
+  	- It has a step size of `0.1` (telled by the 5th number) for MC interations.
+  	- Thickness is described by a single value in one group so it does not need the 6th column.
+  	- So in summary, the thickness of the group 0 is perturbed between 0.0~2km, with a step size of 0.1 km.
+- Line 2: `0 1 1 0.5 0.05 0`
+	- This row defines the first (telled by the 6th number `0`) Vs (telled by the 2nd number `1`) parameter for group 0 (telled by the 1st number `0`).
+   	- The radius in model space is `0.5` (absolute value,telled by the 3rd and 4th number), with a step size of `0.05`.
+- Line 3: `0 1 1 0.5 0.05 1`
+  	- This row defines the second (telled by the 6th number `1`) Vs parameter for group 0.
+  	- The rest is the same as Line2
+- Line 4:`1 0 1 5.0 0.5`
+  	- The thickness of the group 1 is perturbed between `29-5=24` to `29+5=34`km, with a step size of 0.5 km
+- Line 5:`1 1 1 0.5 0.05 0`
+  	- The **first** Vs parameter (which is a B-spline coefficient according to the model file) is perturbed between `3.0-0.5=2.5` and `3.0+0.5=3.5` km/s, with a step size of 0.05.
+- Line 6: `1 1 1 0.5 0.05 1`
+  	- The **second** Vs parameter (which is a B-spline coefficient according to the model file) is perturbed between `3.2-0.5=2.7` and `3.2+0.5=3.7` km/s, with a step size of 0.05.
+- Line 7 to Line 9: ...(Similar to Line5, Line6)
+- Line 10: `1 2 1 0.15 0.02 0`
+  	- The first **Vp/Vs** parameter (telled by the 2nd number `2`) is perturbed between `1.71-0.15` and `1.71+0.15`, with a step size of 0.02
+- Line 11: `1 -22 1 0.15 0.02 0`
+  	- The first Vp/Vs **anomaly value** (telled by the 2nd number `-22`) is perturbed between `1.78-0.15` and `1.78+0.15` with a step size of 0.02
+- Line 12 to Line 16: ... (Similar to Line5~9)
