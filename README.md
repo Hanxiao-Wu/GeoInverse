@@ -261,7 +261,8 @@ The `in.para` file is used to define the parameters for the Monte Carlo inversio
 - Line 11: `1 -22 1 0.15 0.02 0`
   	- The first Vp/Vs **anomaly value** (telled by the 2nd number `-22`) is perturbed between `1.78-0.15` and `1.78+0.15` with a step size of 0.02
 - Line 12 to Line 16: ... (Similar to Line5~9)
-
+So the model looks like:
+![Model figure](model.png)
 ## Input Data Format
 The **surface wave dispersion, H/V ratios, and waveform-fitting receiver functions** are stored in plain `.txt` files. The first row of the file specifies the number of rows and columns in the dataset (exclude the first row). From the second row onward, the data is structured as follows:
 - Surface Wave Dispersion (km/s) and H/V Ratios:
