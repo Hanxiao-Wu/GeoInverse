@@ -318,4 +318,4 @@ EOF
 ```
 The `${fcontrol}` should be the file name of the `*.control` file.
 
-The `1` in this command represents the number of threads one wants use. However, the program currently **cannot** do parallel computing, so this value has to be `1`. (:P)
+The `1` in this command represents the number of threads one wants to use. However, the program currently **cannot** do parallel computing, so this value has to be `1`. (:P)
