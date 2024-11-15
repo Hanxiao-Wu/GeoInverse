@@ -48,7 +48,7 @@ To run the program, three main files are required:
 3. `in.para`**File**
    - This file, together with the model file, defines the model space. It specifies which parameter to perturb, its bounds (absolute or percentage), and the step size for Monte Carlo sampling.
 
-The following is a line-by-line explanation of these files. After reading this README, you should be able to construct the files based on your own needs. However, it is still strongly recommended to modify the example files provided here according to your needs, rather than starting from scratch.
+The following is a line-by-line explanation of these files. After reading this README, one should be able to construct the files based on one's own needs. However, it is still strongly recommended to modify the example files provided here, rather than starting from scratch.
 
 ### 1. Inversion Control File (`*.control`)
 The `*.control` file is essential for configuring inversion parameters and Monte Carlo settings. It tells the code where to read the data from, the weights for each dataset, how many searches to perform, how many iterations to run for each search, and so on. Below is an [example control file](test.control) with explanations for each parameter:
@@ -150,7 +150,7 @@ The model file defines the configuration of the basic layers and their fine stru
 	- The desired number of layers in the fine 1D model for this group. The thickness of each fine layer is calculated as the **group thickness divided by the number of layers**.
 
 ##### Example
-You can find an example model file [here](test.mod).
+One can find an example model file [here](test.mod).
 The following is an explanation in a group-by-group format. Each group has 7 rows to describe its Vs, Vp(or VP/Vs), density, Qs, Qp, T, P, respectively.
 
 ***group 0*** Sedimentary layer
@@ -317,4 +317,4 @@ EOF
 ```
 The `${fcontrol}` should be the file name of the `*.control` file.
 
-The `1` in this command represents the number of threads you want use. However, the program currently **cannot** do parallel computing, so this value has to be `1`. (:P)
+The `1` in this command represents the number of threads one wants use. However, the program currently **cannot** do parallel computing, so this value has to be `1`. (:P)
