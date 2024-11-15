@@ -5,24 +5,24 @@ This program, written in C++, is designed for geophysical inversion applications
 > [Wu, H., Sui, S., & Shen, W. (2024). Incorporating H-k stacking with Monte Carlo joint inversion of multiple seismic observables: A case study for the northwestern US. Journal of Geophysical Research: Solid Earth, 129, e2023JB027952. ](https://doi.org/10.1029/2023JB027952)
 
 ## Features
-- Support for Multiple Data Types:
-	- Receiver Functions (RF): Can take stacked RF to fit its waveform or multiple RFs from different events to fit theirs arrivals (H-k stacking)
-	- Rayleigh wave Dispersion Data: Include both phases and group velocity. Potentially can also take Love wave dispersion, but not tested yet.
-	- Rayleigh wave H/V ratio (Ellipticity)
-	- Rayleigh wave Local Amplification:
-- Inverted Results:
-	- Vs (fine 1-D structure)
-	- Vp/Vs (can be layered structure instead of just a bulk value)
-	- Density (currently not tested)
-	- Moho Depth
-	- Temperature (future feature)
-	- Pressure (future feature)
- - Inversion method:
-   	- Based on **Monte Carlo algorithm**.
-   		- It can handle non-linear, complex inversion;
-   	   	- Unlike gradient-based optimization methods that may get stuck in local minima, the Monte Carlo method uses random sampling to explore the entire parameter space, increasing the likelihood of finding a **global optimum**.
-   	   	- The Monte Carlo approach allows for the estimation of uncertainties in model parameters by generating a **distribution of possible solutions**, making it especially useful for quantifying confidence in the inversion results.
-   	- It integrates of traditional surface wave receiver function **joint inversion** with the **receiver function H-kappa stacking** method. This combined approach effectively addresses the **trade-off** problem between Vs, Moho depth, and crustal bulk Vp/Vs, enabling more accurate and robust subsurface models. The flexibility of this method allows for simultaneous inversion of multiple seismic observables, resulting in a better-constrained model.
+### Support for Multiple Data Types:
+- Receiver Functions (RF): Can take stacked RF to fit its waveform or multiple RFs from different events to fit theirs arrivals (H-k stacking)
+- Rayleigh wave Dispersion Data: Include both phases and group velocity. Potentially can also take Love wave dispersion, but not tested yet.
+- Rayleigh wave H/V ratio (Ellipticity)
+- Rayleigh wave Local Amplification:
+### Inverted Results:
+- Vs (fine 1-D structure)
+- Vp/Vs (can be layered structure instead of just a bulk value)
+- Density (currently not tested)
+- Moho Depth
+- Temperature (future feature)
+- Pressure (future feature)
+### Inversion method:
+- Based on **Monte Carlo algorithm**.
+	- It can handle non-linear, complex inversion;
+   	- Unlike gradient-based optimization methods that may get stuck in local minima, the Monte Carlo method uses random sampling to explore the entire parameter space, increasing the likelihood of finding a **global optimum**.
+   	- The Monte Carlo approach allows for the estimation of uncertainties in model parameters by generating a **distribution of possible solutions**, making it especially useful for quantifying confidence in the inversion results.
+- It integrates of traditional surface wave receiver function **joint inversion** with the **receiver function H-kappa stacking** method. This combined approach effectively addresses the **trade-off** problem between Vs, Moho depth, and crustal bulk Vp/Vs, enabling more accurate and robust subsurface models. The flexibility of this method allows for simultaneous inversion of multiple seismic observables, resulting in a better-constrained model.
 
 > [!IMPORTANT]
 > - While the GeoInverse program is designed to be highly flexible, allowing a wide range of parameters to participate in the inversion, the reliability of the results fundamentally depends on the **input data**, not the inversion methodology itself.
