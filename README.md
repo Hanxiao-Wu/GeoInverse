@@ -39,6 +39,8 @@ To run the program, three main files are required:
 3. `in.para`**File**
    - This file, together with the model file, defines the model space. It specifies which parameter to perturb, its bounds (absolute or percentage), and the step size for Monte Carlo sampling.
 
+The following is a line-by-line explanation of these files. After reading this README, you should be able to construct the files based on your own needs. However, it is still strongly recommended to modify the example files provided here according to your needs, rather than starting from scratch.
+
 ### 1. Inversion Control File (`*.control`)
 The `*.control` file is essential for configuring inversion parameters and Monte Carlo settings. It tells the code where to read the data from, the weights for each dataset, how many searches to perform, how many iterations to run for each search, and so on. Below is an [example control file](test.control) with explanations for each parameter:
 ```
