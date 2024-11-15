@@ -1551,7 +1551,9 @@ int RFData::read_from_sac(const string &fname) {
     a = sac.user0; // gaussian parameter
     snr = sac.user2; // SNR ratio
     fitness = sac.user1; //fitness of deconvolution
-    rayp = sac.user3/earth_radius; // ray parameter
+    rayp = sac.user3; // ray parameter
+    if(rayp>10.) rayp = rayp/earth_radius;
+    //rayp = sac.user3/earth_radius; // ray parameter
     // todo: unit of rayp
     dist = sac.dist;
     baz = sac.baz;
