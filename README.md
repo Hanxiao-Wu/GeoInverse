@@ -259,3 +259,21 @@ The `in.para` file is used to define the parameters for the Monte Carlo inversio
 - Line 12 to Line 16: ... (Similar to Line5~9)
 
 ## Data Format
+The **surface wave dispersion, H/V ratios, and waveform-fitting receiver functions** are stored in plain `.txt` files. The first row of the file specifies the number of rows and columns in the dataset (exclude the first row). From the second row onward, the data is structured as follows:
+	- Surface Wave Dispersion (km/s) and H/V Ratios:
+ 		1. Column 1: Period (s)
+   		2. Column 2: Measured Value
+     		3. Column 3: Measurement Error
+	- Surface Wave Local Amplification
+ 		1. Column 1: Period (s)
+   		2. Column 2: Measured Value (This is a relative value)
+     		3. Column 3: Measurement Error
+		4. Column 4: Reference Value
+	- Receiver Functions (For waveform fitting)
+ 		1. Column 1: Time (s)
+   		2. Column 2: Amplitude
+     		3. Column 3: Measurement Error
+The **receiver functions that is used for H-kappa stacking** are stored in **SAC Format**.These SAC files include the following:
+	- Standard SAC headers (beggining time, number of data points, sampling rate, and so on).
+	- The user3 variable in the SAC header stores the ray parameter of the corresponding receiver function.
+Some example data can be found here.
