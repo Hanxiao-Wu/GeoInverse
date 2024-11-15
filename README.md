@@ -268,7 +268,7 @@ The `in.para` file is used to define the parameters for the Monte Carlo inversio
 - Line 12 to Line 16: ... (Similar to Line5~9)
 
 > [!WARNING]
-> The thickness of the 'mantle' layer or say the last group in the model setting is **not** allowed to be perturbed. The total thickness of the whole model is fixed during the inversion, and the thickness of the last group equals the `total thickness - thickness of other groups`
+> **Fixed Total Model Thickness**.The total thickness of the model is fixed during the inversion process. Therefore, the thickness of the last group in the model cannot be actively perturbed in the inversion. Instead, it is automatically adjusted to ensure the total thickness remains constant. If the thicknesses of other groups are perturbed, the program recalculates the thickness of the last group as the difference between the total thickness and the sum of the thicknesses of all preceding groups. 
 
 ## Input Data Format
 The **surface wave dispersion, H/V ratios, and waveform-fitting receiver functions** are stored in plain `.txt` files. The first row of the file specifies the number of rows and columns in the dataset (exclude the first row). From the second row onward, the data is structured as follows:
