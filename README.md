@@ -16,6 +16,9 @@ This program, written in C++, is designed for geophysical inversion applications
 	- Moho Depth
 	- Temperature (future feature)
 	- Pressure (future feature)
+> [!IMPORTANT]
+> - While the GeoInverse program is designed to be highly flexible, allowing a wide range of parameters to participate in the inversion, the reliability of the results fundamentally depends on the **input data**, not the inversion methodology itself.
+> - Users must carefully choose inversion parameters based on the sensitivity of their data. For instance, although the program permits inversion for detailed Vp/Vs structures, such results are only trustworthy if the input data have a depth-related sensitivity to Vp/Vs variations. Otherwise, the inversion might produce a "result," but that result is just 'garbage in, garbage out'. Always assess the sensitivity and quality of your input data before proceeding.
 
 ## Inversion Setup
 To run the program, three main files are required:
