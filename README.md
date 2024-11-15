@@ -133,6 +133,7 @@ The model file defines the configuration of the basic layers and their fine stru
 ##### Example
 You can find an example model file [here](test.mod).
 The following is an explanation in a group-by-group format. Each group has 7 rows to describe its Vs, Vp(or VP/Vs), density, Qs, Qp, T, P, respectively.
+
 ***group 0*** Sedimentary layer
 ```
 0 1 1 1.0 2 1.5 2.7 0 5 0.
