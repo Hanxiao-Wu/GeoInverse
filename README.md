@@ -20,7 +20,7 @@ This program, written in C++, is designed for geophysical inversion applications
 ## Inversion Setup
 To run the program, three main files are required:
 ### 1. Inversion Control File (`*.control`)
-The `*.control` file is essential for configuring inversion parameters and Monte Carlo settings. It specifies data sources, weights for each data type, and the number of searches and iterations. Below is an [example control file](test.control) with explanations for each parameter:
+The `*.control` file is essential for configuring inversion parameters and Monte Carlo settings. It tells the code where to read the data from, the weights for each dataset, how many searches to perform, how many iterations to run for each search, and so on. Below is an [example control file](test.control) with explanations for each parameter:
 ```
 model 2 tar.mod        # Number of basic layers; model file
 para in.para           # Parameter file for setting up perturbed parameters
@@ -67,7 +67,7 @@ The program is designed to derive a detailed 1D subsurface model (e.g., Vs, Vp, 
 2. Finer Layers within Basic Layers: Each basic layer is further divided into a finer 1D model. This detailed layering is controlled by user-defined parameters in the model file. Each fine layer's properties are determined by interpolation (e.g., B-spline) using a few coefficients, typically no more than five. This approach ensures a smoother transition in model parameters and reduces the inversion complexity.
 For further information, refer to [Shen et al., 2013](https://academic.oup.com/gji/article/192/2/807/580799), and [Wu et al., 2024](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2023JB027952).
 #### Model File
-The model file defines the configuration of the basic layers and their fine structure, supporting the generation of a detailed 1D model using a variety of interpolation approaches. Below is a breakdown of each column's purpose.
+The model file defines the configuration of the basic layers and their fine structure, supporting the generation of a detailed 1D model using a variety of interpolation approaches. Also the model described in the model file serves as the **reference model** whicn will be the center of the model space. Below is a breakdown of each column's purpose.
 ##### Column Description
 1. Group Index (Column 1):
 	- Represents the index of the "basic layer" or **group**, starting from 0.
@@ -248,3 +248,13 @@ The `in.para` file is used to define the parameters for the Monte Carlo inversio
 - Line 11: `1 -22 1 0.15 0.02 0`
   	- The first Vp/Vs **anomaly value** (telled by the 2nd number `-22`) is perturbed between `1.78-0.15` and `1.78+0.15` with a step size of 0.02
 - Line 12 to Line 16: ... (Similar to Line5~9)
+
+### Summary of the three input files
+1. **Control File**(`*.control`)
+   - This file defines the overall configuration of the inversion process, such as the number of Monte Carlo searches, the iteration count per search, and the data source weights.
+   - It acts as the main setup file that connects all components of the inversion.
+2. **Model File**
+   - This file describes detailed 1D model using a smaller number of parameter.
+   - The model described in this file also serves as the center of the model space.
+3. `in.para`**File**
+   - This file, together with the model file, defines the model space. It specifies which parameter to perturb, its bounds (absolute or percentage), and the step size for Monte Carlo sampling.
