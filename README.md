@@ -211,6 +211,8 @@ So, layer 1 represents the 29 km thick crystalline crust, where Vs is smoothly i
 **Overall Summary**
 The model file defines a three-layer structure (sedimentary layer, crystalline crust, and uppermost mantle), using a combination of linear, bulk, and B-spline interpolations. Each layer is characterized by specific Vs, Vp/Vs, density, Qs, and Qp, enabling a detailed 1D model suitable for forward calculation. 
 
+So the model looks like:
+![Model figure](model.png)
 > **Note:** The designations "sedimentary layer," "crystalline crust layer," and "uppermost mantle layer" are conceptual labels applied for user interpretation. The GeoInverse program does not explicitly recognize these as specific geological layers; rather, it organizes model groups from shallow to deep solely based on their `group index`. This indexing enables flexibility in setting up layers without requiring geological definitions in the input files.
 
 ### 3. `in.para` File
