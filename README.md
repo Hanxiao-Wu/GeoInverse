@@ -264,7 +264,7 @@ The **surface wave dispersion, H/V ratios, and waveform-fitting receiver functio
  		1. Column 1: Period (s)
    		2. Column 2: Measured Value
      		3. Column 3: Measurement Error
-	- Surface Wave Local Amplification
+       - Surface Wave Local Amplification
  		1. Column 1: Period (s)
    		2. Column 2: Measured Value (This is a relative value)
      		3. Column 3: Measurement Error
