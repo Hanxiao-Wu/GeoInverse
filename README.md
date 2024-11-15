@@ -289,3 +289,13 @@ The **receiver functions that is used for H-kappa stacking** are stored in **SAC
 - Standard SAC headers (beggining time, number of data points, sampling rate, and so on).
 - The user3 variable in the SAC header stores the ray parameter of the corresponding receiver function.
 Some example data can be found [here](FowardTest) (The file whose name contains 'template')
+
+## How to Run
+```
+./src/MC_main<<EOF 
+${fcontrol} 1
+EOF
+```
+The `${fcontrol}` should be the file name of the `*.control` file.
+
+The `1` in this command represents the number of threads you want use. However, the program currently **cannot** do parallel computing, so this value has to be `1`. (:P)
