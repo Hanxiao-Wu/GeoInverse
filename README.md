@@ -19,6 +19,15 @@ This program, written in C++, is designed for geophysical inversion applications
 
 ## Inversion Setup
 To run the program, three main files are required:
+1. **Inversion Control File**(`*.control`)
+   - This file defines the overall configuration of the inversion process, such as the number of Monte Carlo searches, the iteration count per search, and the data source weights.
+   - It acts as the main setup file that connects all components of the inversion.
+2. **Model File**
+   - This file describes detailed 1D model using a smaller number of parameter.
+   - The model described in this file also serves as the center of the model space.
+3. `in.para`**File**
+   - This file, together with the model file, defines the model space. It specifies which parameter to perturb, its bounds (absolute or percentage), and the step size for Monte Carlo sampling.
+
 ### 1. Inversion Control File (`*.control`)
 The `*.control` file is essential for configuring inversion parameters and Monte Carlo settings. It tells the code where to read the data from, the weights for each dataset, how many searches to perform, how many iterations to run for each search, and so on. Below is an [example control file](test.control) with explanations for each parameter:
 ```
@@ -249,12 +258,4 @@ The `in.para` file is used to define the parameters for the Monte Carlo inversio
   	- The first Vp/Vs **anomaly value** (telled by the 2nd number `-22`) is perturbed between `1.78-0.15` and `1.78+0.15` with a step size of 0.02
 - Line 12 to Line 16: ... (Similar to Line5~9)
 
-### Summary of the three input files
-1. **Control File**(`*.control`)
-   - This file defines the overall configuration of the inversion process, such as the number of Monte Carlo searches, the iteration count per search, and the data source weights.
-   - It acts as the main setup file that connects all components of the inversion.
-2. **Model File**
-   - This file describes detailed 1D model using a smaller number of parameter.
-   - The model described in this file also serves as the center of the model space.
-3. `in.para`**File**
-   - This file, together with the model file, defines the model space. It specifies which parameter to perturb, its bounds (absolute or percentage), and the step size for Monte Carlo sampling.
+## Data Format
