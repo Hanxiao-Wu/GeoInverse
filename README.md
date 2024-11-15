@@ -141,47 +141,47 @@ The following is an explanation in a group-by-group format. Each group has 7 row
 0 7 4 1.0 1 400 0 5
 ```
 - Line 1: `0 1 1 1.0 2 1.5 2.7 0 5 0.`
-	1. **Group Index (0)**: Identifies the sedimentary layer as the first group in this model.
-	2. **Property Type (1)**: This line describes the shear wave velocity (Vs).
-	3. **Interpolation Approach (1)**: Uses gradient interpolation from top to bottom within this group.
-	4. **Group Thickness (1.0)**: Specifies the thickness of the sedimentary layer as 1.0 kilometers.
-	5. **Number of Parameters (2)**: Two parameters are needed for gradient interpolation.
-	6. **Parameter (1.5 2.7)**: Top (1.5km/s) and bottom (2.7km/s) Vs values for linear gradient.
-	7. **Number of Anomalies (0)**: No additional anomalies are added within this layer.
-	8. **Number of Fine Layers (5)**: This group is  divided into 5 fine layers.
-	9. **Depth of the Top Boundary (0.)**: Only the first group needs this value.
+	- **Group Index (0)**: Identifies the sedimentary layer as the first group in this model.
+	- **Property Type (1)**: This line describes the shear wave velocity (Vs).
+	- **Interpolation Approach (1)**: Uses gradient interpolation from top to bottom within this group.
+	- **Group Thickness (1.0)**: Specifies the thickness of the sedimentary layer as 1.0 kilometers.
+	- **Number of Parameters (2)**: Two parameters are needed for gradient interpolation.
+	- **Parameter (1.5 2.7)**: Top (1.5km/s) and bottom (2.7km/s) Vs values for linear gradient.
+	- **Number of Anomalies (0)**: No additional anomalies are added within this layer.
+	- **Number of Fine Layers (5)**: This group is  divided into 5 fine layers.
+	- **Depth of the Top Boundary (0.)**: Only the first group needs this value.
 - Lines 2–5: `0 2 -3 1.0 0 0 5` to `0 5 -3 1.0 0 0 5`
-	1. **Property Types (2, 3, 4, 5)**: Define Vp/Vs, density, Qs, and Qp respectively.
-	2. **Interpolation Approach (-3)**: Uses Brocher’s empirical formula for automatic calculation based on Vs.
-	3. **Parameters**: No additional parameters are needed.
-	4. **Fine Layers (5)**: Matches the fine layer count of Line 1.
+	- **Property Types (2, 3, 4, 5)**: Define Vp/Vs, density, Qs, and Qp respectively.
+	- **Interpolation Approach (-3)**: Uses Brocher’s empirical formula for automatic calculation based on Vs.
+	- **Parameters**: No additional parameters are needed.
+	- **Fine Layers (5)**: Matches the fine layer count of Line 1.
 - Lines 6–7: `0 6 4 1.0 1 300 0 5` and `0 7 4 1.0 1 400 0 5`
-	1. **Property Types (6, 7)**: Define temperature (T) and pressure (P).
-	2. **Interpolation Approach (4)**: Uses bulk assignment with a single value across the layer.
-	3. **Parameter (300 for T, 400 for P)**: Sets temperature and pressure values.
-	4. **Fine Layers (5)**: Matches other properties in this group.
+	- **Property Types (6, 7)**: Define temperature (T) and pressure (P).
+	- **Interpolation Approach (4)**: Uses bulk assignment with a single value across the layer.
+	- **Parameter (300 for T, 400 for P)**: Sets temperature and pressure values.
+	- **Fine Layers (5)**: Matches other properties in this group.
 So basically, this group describes a 1.0 km thick sedimentary layer with a Vs gradient from 1.5 to 2.7 km/s, where the other properties of this layer (Vp, density, Qs, and Qp) are derived empirically from Vs. This way, these parameters can not be directly perturbed during the inversion. In the current version, the algorith doesn't do anything with the T and P properties, so 
 
 **group 1** Crystalline Crust
 - Line 8: `1 1 3 29.0 5 3.0 3.2 3.5 3.7 3.9 0 25`
-	1. **Group Index (1)**: Identifies the crystalline crust layer as the second group in this model.
-	2. **Property Type (1)**: This line defines Vs.
-	3. **Interpolation Approach (3)**: Uses B-spline interpolation for a smooth Vs profile.
-	4. **Group Thickness (29.0)**: Specifies thickness as 29.0 km.
-	5. **Number of Parameters (5)**: Five parameters for the B-spline.
-	6. **Parameters (3.0, 3.2, 3.5, 3.7, 3.9)**: B-spline control points for Vs.
-	7. **Fine Layers (25)**: Divides this group into 25 fine layers.
+	- **Group Index (1)**: Identifies the crystalline crust layer as the second group in this model.
+	- **Property Type (1)**: This line defines Vs.
+	- **Interpolation Approach (3)**: Uses B-spline interpolation for a smooth Vs profile.
+	- **Group Thickness (29.0)**: Specifies thickness as 29.0 km.
+	- **Number of Parameters (5)**: Five parameters for the B-spline.
+	- **Parameters (3.0, 3.2, 3.5, 3.7, 3.9)**: B-spline control points for Vs.
+	- **Fine Layers (25)**: Divides this group into 25 fine layers.
 
 - Line 9: `1 2 4 29.0 1 1.71 1 0.5 1.0 1.78 25`
-	1. **Property Type (2)**: Represents Vp/Vs.
-	2. **Interpolation Approach (4)**: Bulk Vp/Vs across the group.
-	3. **Parameter (1.71)**: Vp/Vs ratio.
-	4. **Number of Anomalies (1)**: One anomaly is added.
-	5. **Anomaly (0.5 1.0 1.78)**:
+	- **Property Type (2)**: Represents Vp/Vs.
+	- **Interpolation Approach (4)**: Bulk Vp/Vs across the group.
+	- **Parameter (1.71)**: Vp/Vs ratio.
+	- **Number of Anomalies (1)**: One anomaly is added.
+	- **Anomaly (0.5 1.0 1.78)**:
 		- **Upper Boundary (0.5)**: 50% depth of this layer.
 		- **Lower Boundary (1.0)**: 100% depth of this layer.
 	    - **Anomaly Value (1.78)**: Vp/Vs within anomaly.
-	6. **Fine Layers (25)**: Consistent with Vs layering.
+	- **Fine Layers (25)**: Consistent with Vs layering.
 
 - Lines 10–14: `1 3 -3 29.0 0 0 25` to `1 7 4 29.0 1 1000 0 25`
 	- Define density, Qs, Qp (using empirical relations), temperature (700), and pressure (1000) in the crystalline crust.
@@ -190,16 +190,16 @@ So, layer 1 represents the 29 km thick crystalline crust, where Vs is smoothly i
 
 **group 2** Uppermost Mantle
 - Line 15: `2 1 3 150.0 5 4.2 4.35 4.45 4.53 4.6 0 30`
-	1. **Group Index (2)**: Identifies theuppermost mantle layer as the third group in this model.
-	2. **Property Type (1)**: Defines Vs.
-	3. **Interpolation Approach (3)**: B-spline interpolation for Vs.
-	4. **Group Thickness (150.0)**: Thickness of 150 km.
-	5. **Parameters (4.2, 4.35, 4.45, 4.53, 4.6)**: B-spline control points for Vs.
-	6. **Fine Layers (30)**: Divides this group into 30 fine layers.
+	- **Group Index (2)**: Identifies theuppermost mantle layer as the third group in this model.
+	- **Property Type (1)**: Defines Vs.
+	- **Interpolation Approach (3)**: B-spline interpolation for Vs.
+	- **Group Thickness (150.0)**: Thickness of 150 km.
+	- **Parameters (4.2, 4.35, 4.45, 4.53, 4.6)**: B-spline control points for Vs.
+	- **Fine Layers (30)**: Divides this group into 30 fine layers.
 
 - Line 16: `2 2 4 150.0 1 1.789 0 30`
-	1. **Property Type (2)**: Vp/Vs with bulk application.
-	2. **Parameter (1.789)**: Sets Vp/Vs ratio.
+	- **Property Type (2)**: Vp/Vs with bulk application.
+	- **Parameter (1.789)**: Sets Vp/Vs ratio.
 
 - Lines 17–21: `2 3 -3 150.0 0 0 30` to `2 7 4 150.0 1 1000 0 30`
 	- Define density, Qs, Qp (empirical relations), temperature (800), and pressure (1000) in the mantle.
@@ -261,18 +261,18 @@ The `in.para` file is used to define the parameters for the Monte Carlo inversio
 ## Data Format
 The **surface wave dispersion, H/V ratios, and waveform-fitting receiver functions** are stored in plain `.txt` files. The first row of the file specifies the number of rows and columns in the dataset (exclude the first row). From the second row onward, the data is structured as follows:
 - Surface Wave Dispersion (km/s) and H/V Ratios:
-	1. Column 1: Period (s)
-	2. Column 2: Measured Value
-	3. Column 3: Measurement Error
+	- Column 1: Period (s)
+	- Column 2: Measured Value
+	- Column 3: Measurement Error
 - Surface Wave Local Amplification
-	1. Column 1: Period (s)
-   	2. Column 2: Measured Value (This is a relative value)
-     	3. Column 3: Measurement Error
-	4. Column 4: Reference Value
+	- Column 1: Period (s)
+   	- Column 2: Measured Value (This is a relative value)
+     	- Column 3: Measurement Error
+	- Column 4: Reference Value
 - Receiver Functions (For waveform fitting)
-	1. Column 1: Time (s)
-   	2. Column 2: Amplitude
-     	3. Column 3: Measurement Error
+	- Column 1: Time (s)
+   	- Column 2: Amplitude
+     	- Column 3: Measurement Error
 The **receiver functions that is used for H-kappa stacking** are stored in **SAC Format**.These SAC files include the following:
 - Standard SAC headers (beggining time, number of data points, sampling rate, and so on).
 - The user3 variable in the SAC header stores the ray parameter of the corresponding receiver function.
