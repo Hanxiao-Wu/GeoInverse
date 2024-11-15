@@ -1,35 +1,36 @@
 # Monte Carlo Joint Inversion Program
 
 ## Overview
-This program, written in C++, is designed for geophysical inversion applications using a classical Monte Carlo inversion approach. It provides a framework to estimate subsurface structure with multiple types of geophysical data, particularly useful for studying crustal and uppermost mantle structures. This project builds upon the methodologies described in these paper:
+This program, written in C++, is designed for geophysical inversion applications based on a classical Monte Carlo inversion framework. It provides a tool for estimating subsurface structure with multiple types of geophysical data and is particularly useful for studying crustal and uppermost mantle structures. This project builds upon the methodologies described in these paper:
 > - [Wu, H., Sui, S., & Shen, W. (2024). Incorporating H-k stacking with Monte Carlo joint inversion of multiple seismic observables: A case study for the northwestern US. Journal of Geophysical Research: Solid Earth, 129, e2023JB027952. ](https://doi.org/10.1029/2023JB027952)
 > - Wu, H., Sui, S., Lin, F., Shen, W. (2024) Evidence of partial melting in the western U.S.: Insights from new seismic observable.\[Manuscript in preparation\]
 
 ## Features
 ### Support for Multiple Data Types:
-- Receiver Functions (RF): Can take stacked RF to fit its waveform or multiple RFs from different events to fit theirs arrivals (H-k stacking)
-- Rayleigh wave Dispersion Data: Include both phases and group velocity. Potentially can also take Love wave dispersion, but not tested yet.
-- Rayleigh wave H/V ratio (Ellipticity)
-- Rayleigh wave Local Amplification:
+- **Receiver Functions (RF)**: Can take stacked RF to fit its waveform or multiple RFs from different events to fit theirs arrivals (H-k stacking)
+- **Rayleigh wave Dispersion Data**: Include both phases and group velocity. Potentially can also take Love wave dispersion, but not tested yet.
+- **Rayleigh wave H/V ratio (Ellipticity)**
+- **Rayleigh wave Local Amplification**
 ### Inverted Results:
-- Vs (fine 1-D structure)
-- Vp/Vs (can be layered structure instead of just a bulk value)
-- Density (currently not tested)
-- Moho Depth
-- Temperature (future feature)
-- Pressure (future feature)
+- **Vs** (fine 1-D structure)
+- **Vp/Vs** (can be layered structure instead of just a bulk value)
+- **Density** (currently not tested)
+- **Moho Depth**
+- **Temperature** (future feature)
+- **Pressure** (future feature)
 ### Inversion method:
 - Based on **Monte Carlo algorithm**.
-	- It can handle non-linear, complex inversion;
-   	- Unlike gradient-based optimization methods that may get stuck in local minima, the Monte Carlo method uses random sampling to explore the entire parameter space, increasing the likelihood of finding a **global optimum**.
-   	- The Monte Carlo approach allows for the estimation of uncertainties in model parameters by generating a **distribution of possible solutions**, making it especially useful for quantifying confidence in the inversion results.
-- It integrates of traditional surface wave receiver function **joint inversion** with the **receiver function H-kappa stacking** method. This combined approach effectively addresses the **trade-off** problem between Vs, Moho depth, and crustal bulk Vp/Vs, enabling more accurate and robust subsurface models. The flexibility of this method allows for simultaneous inversion of multiple seismic observables, resulting in a better-constrained model.
+	- Can handle non-linear and complex inversion;
+   	- Explores the entire parameter space via random sampling, avoiding local minima and increasing the likelihood of finding the **global optimum**.
+   	- Allows for the estimation of uncertainties in model parameters by generating a **distribution of possible solutions**, making it especially useful for quantifying confidence in the inversion results.
+- Integrates traditional surface wave & receiver function **joint inversion method** with the **receiver function H-kappa stacking method**, effectively mitigating the **trade-off** between Vs, Moho depth, and crustal bulk Vp/Vs. It ensures accurate and robust subsurface models, allowing for simultaneous inversion of multiple seismic observables.
 
 > [!IMPORTANT]
 > - While the GeoInverse program is designed to be highly flexible, allowing a wide range of parameters to participate in the inversion, the reliability of the results fundamentally depends on the **input data**, not the inversion methodology itself.
 > - Users must carefully choose inversion parameters based on the sensitivity of their data. For instance, although the program permits inversion for detailed Vp/Vs structures, such results are only trustworthy if the input data have a depth-related sensitivity to Vp/Vs variations. Otherwise, the inversion might produce a "result," but that result is just 'garbage in, garbage out'. Always assess the sensitivity and quality of your input data before proceeding.
 
 ## Installation
+Clone the repository and compile the program:
 ```
 git clone https://github.com/Hanxiao-Wu/GeoInverse.git
 cd GeoInverse/src
@@ -47,7 +48,7 @@ To run the program, three main files are required:
    - This file describes detailed 1D model using a smaller number of parameter.
    - The model described in this file also serves as the center of the model space.
 3. `in.para`**File**
-   - This file, together with the model file, defines the model space. It specifies which parameter to perturb, its bounds (absolute or percentage), and the step size for Monte Carlo sampling.
+   This file, together with the model file, defines the model space. It specifies which parameter to perturb, its bounds (absolute or percentage), and the step size for Monte Carlo sampling.
 
 The following is a line-by-line explanation of these files. After reading this README, one should be able to construct the files based on one's own needs. However, it is still strongly recommended to modify the example files provided here, rather than starting from scratch.
 
@@ -310,7 +311,11 @@ The **receiver functions that is used for H-kappa stacking** are stored in **SAC
 - The user3 variable in the SAC header stores the ray parameter of the corresponding receiver function.
 Some example data can be found [here](FowardTest) (The file whose name contains 'template')
 
-## How to Run
+## Inversion Workflow
+1. **Prepare Input Files:**
+   - Modify the provided example files based on one's own case (e.g., `test.control`, `test.mod`, `in.para`).
+   - Prepare the input data file.
+2. **Run the Inversion:**
 ```
 ./src/MC_main<<EOF 
 ${fcontrol} 1
@@ -319,3 +324,12 @@ EOF
 The `${fcontrol}` should be the file name of the `*.control` file.
 
 The `1` in this command represents the number of threads one wants to use. However, the program currently **cannot** do parallel computing, so this value has to be `1`. (:P)
+
+3.**Run the Posterior Processing:**
+```
+N=`awk '$4==1&&$5==1' ${dir}/MC.*.para | wc -l`
+./src/MC_Posterior<<EOF
+${fcontrol} $N
+EOF
+```
+The `N` is the number of models that are accepted by the Monte-Carlo search.
