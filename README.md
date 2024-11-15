@@ -17,6 +17,13 @@ This program, written in C++, is designed for geophysical inversion applications
 	- Moho Depth
 	- Temperature (future feature)
 	- Pressure (future feature)
+ - Inversion method:
+   	- Based on **Monte Carlo algorithm**.
+   		- It can handle non-linear, complex inversion;
+   	   	- Unlike gradient-based optimization methods that may get stuck in local minima, the Monte Carlo method uses random sampling to explore the entire parameter space, increasing the likelihood of finding a **global optimum**.
+   	   	- The Monte Carlo approach allows for the estimation of uncertainties in model parameters by generating a **distribution of possible solutions**, making it especially useful for quantifying confidence in the inversion results.
+   	- It integrates of traditional surface wave receiver function **joint inversion** with the **receiver function H-kappa stacking** method. This combined approach effectively addresses the **trade-off** problem between Vs, Moho depth, and crustal bulk Vp/Vs, enabling more accurate and robust subsurface models. The flexibility of this method allows for simultaneous inversion of multiple seismic observables, resulting in a better-constrained model.
+
 > [!IMPORTANT]
 > - While the GeoInverse program is designed to be highly flexible, allowing a wide range of parameters to participate in the inversion, the reliability of the results fundamentally depends on the **input data**, not the inversion methodology itself.
 > - Users must carefully choose inversion parameters based on the sensitivity of their data. For instance, although the program permits inversion for detailed Vp/Vs structures, such results are only trustworthy if the input data have a depth-related sensitivity to Vp/Vs variations. Otherwise, the inversion might produce a "result," but that result is just 'garbage in, garbage out'. Always assess the sensitivity and quality of your input data before proceeding.
