@@ -1,0 +1,13 @@
+model 3 test.groups
+para in.para
+disp R 4 p forward/tar_p.dat g forward/tar_g.dat e forward/tar_e.dat a forward/tar_a.dat
+rf 2.5 0.06 forward/tar.2.500000_0.060000.rf.dat
+rfweight 0.4
+hk tar_hk.lst 1 1
+hkweight 0.3 0.4 0.3
+monol 0
+Eweight 1.0 0.035
+#model 8000
+#search 30
+outdir test1 test
+end

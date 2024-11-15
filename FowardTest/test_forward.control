@@ -1,0 +1,13 @@
+model 3 test.mod
+para in.para
+disp R 4 p template_p.dat g template_g.dat e template_e.dat a template_a.dat
+rf 2.5 0.06 template_rf.dat
+rfweight 0.4
+hk tar_hk.lst 1 1
+hkweight 0.3 0.4 0.3
+monol
+Eweight 1. 0.035
+#model -1
+#search 30
+outdir target tar
+end
