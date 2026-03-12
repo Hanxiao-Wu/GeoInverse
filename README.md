@@ -3,6 +3,7 @@
 ## Overview
 This program, written in C++, is designed for geophysical inversion applications based on a classical Monte Carlo inversion framework. It provides a tool for estimating subsurface structure with multiple types of geophysical data and is particularly useful for studying crustal and uppermost mantle structures. This project builds upon the methodologies described in these paper:
 > - [Wu, H., Sui, S., & Shen, W. (2024). Incorporating H-k stacking with Monte Carlo joint inversion of multiple seismic observables: A case study for the northwestern US. Journal of Geophysical Research: Solid Earth, 129, e2023JB027952. ](https://doi.org/10.1029/2023JB027952)
+> - [Weisen Shen, Michael H. Ritzwoller, Vera Schulte-Pelkum, Fan-Chi Lin, Joint inversion of surface wave dispersion and receiver functions: a Bayesian Monte-Carlo approach, Geophysical Journal International, Volume 192, Issue 2, February 2013, Pages 807–836](https://doi.org/10.1093/gji/ggs050)
 > - Wu, H., Sui, S., Lin, F., Shen, W. (2024) Evidence of partial melting in the western U.S.: Insights from new seismic observable.\[Manuscript in preparation\]
 
 ## Features
