@@ -49,6 +49,7 @@ int main(){
         cout<<"Done: read in control file." << endl;
     }
     w_sw = 1. - w_rf;
+	// read in sac files
     err_flag = read2(fhknm0,fhknm);
     if(err_flag !=1 ){
         cout<<"Fail: read in hk.lst file!"<<endl;
