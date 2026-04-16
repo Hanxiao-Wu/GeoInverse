@@ -217,7 +217,7 @@ int main(){
     int Flag = 1.;
     for(int i=0;i<sw_miss.size();i++){
         Flag = 1.;flag.clear();flag.resize(n_sw,0.0);
-        if(kai_joint[i]<kai_cri && E[i]>E_cri ){
+        if(kai_joint[i]<kai_cri && E[i]>=E_cri ){
             for(int k=0;k<n_sw;k++){
                 if(sw_mis_ones[k][i]<min_sw_one[k]+threshold_sw_one) flag[k]=1;
                 //Flag = Flag * flag[k];
