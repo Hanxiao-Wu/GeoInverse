@@ -103,10 +103,14 @@ int main(){
     ref_m.cal_mis();
 	ref_m.write_info(outdir[0],outdir[1]);
     cout<<"cal_mis"<<endl;
-    ref_m.cal_RFmisfit();
+	if(w_rf>0.0001) {
+    	ref_m.cal_RFmisfit();
+	}
     ref_m.cal_Jmisfit();
     ref_m.print_swdata();
-    ref_m.print_rfdata();
+	if(w_rf>0.0001) {
+    	ref_m.print_rfdata();
+	}
     ref_m.update_data(flag_forward);
 	ref_m.write_data_to_file(outdir[0]+"/forward",flag_forward); //todo: need to be fixed
     cout<<"done: forward calculation."<<endl;
